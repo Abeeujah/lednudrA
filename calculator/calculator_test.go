@@ -28,6 +28,18 @@ func TestAdd(t *testing.T) {
 	}
 }
 
+func TestAddMany(t *testing.T) {
+	t.Parallel()
+
+	want := 10.0
+
+	got := calculator.AddMany(2,2,2,2,2)
+
+	if want != got {
+		t.Errorf("Expected %f, got %f.", want, got)
+	}
+}
+
 func TestSubtract(t *testing.T) {
 	t.Parallel()
 
@@ -50,6 +62,18 @@ func TestSubtract(t *testing.T) {
 	}
 }
 
+func TestSubtractMany(t *testing.T) {
+	t.Parallel()
+
+	want := 2.0
+
+	got := calculator.SubtractMany(14, 10, 2)
+
+	if want != got {
+		t.Errorf("Expected %f, got %f", want, got)
+	}
+}
+
 func TestMultiply(t *testing.T) {
 	t.Parallel()
 
@@ -69,6 +93,18 @@ func TestMultiply(t *testing.T) {
 		if tc.want != got {
 			t.Errorf("Multiply(%f, %f): expected %f, got %f\n", tc.a, tc.b, tc.want, got)
 		}
+	}
+}
+
+func TestMultiplyMany(t *testing.T) {
+	t.Parallel()
+
+	want := float64(16)
+
+	got := calculator.MultiplyMany(2,2,2,2)
+
+	if want != got {
+		t.Errorf("Expected %f, got %f", want, got)
 	}
 }
 
@@ -122,6 +158,31 @@ func TestDivideInvalid(t *testing.T) {
 		if err == nil {
 			t.Errorf("Divide(%f, %f): expected %f, got %f\n", tc.a, tc.b, tc.want, err)
 		}
+	}
+}
+
+func TestDivideMany(t *testing.T) {
+	t.Parallel()
+
+	want := float64(1)
+	got, err := calculator.DivideMany(12, 4, 3)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if want != got {
+		t.Errorf("Expected %f, got %f", want, got)
+	}
+}
+
+func TestDivideManyInvalid(t *testing.T) {
+	t.Parallel()
+
+	_, err := calculator.DivideMany(12, 4, 0)
+
+	if err == nil {
+		t.Errorf("Expected error for invalid test case, got nil.")
 	}
 }
 
